@@ -26,12 +26,17 @@ The controller is fed with the cross track error (CTE), which is the derivation 
 * D - Differential component:
 	This component is proportional to the CTE difference. A large CTE change leads to a large dampening of the proportional controller.
 
-All three components produce weighted control outputs based on their gain factors K_P, K_I and K_D.
+All three components produce weighted control outputs based on their gain factors K_P, K_I and K_D which leads to the implemented PID formula:
+steering_angle = - K_P * CTE - K_I * CTE_sum - K_D * CTE_diff
+
 
 The following video shows the effect of a P controller, with K_I and K_D set to 0. The car starts driving straight, but gets off the track after a few seconds due to an increasingly oscillating path.
+
 ![P](./gifs/P_01.gif)
 
+
 The oscillation can be controlled by adding a D component to the controller, which can be seen in the following clip.
+
 ![PD](./gifs/PD_01_07.gif)
 
 The influence of the I controller could be shown in this case, since this component is supposed to correct a small error from the target value over a longer time. The fact that the track only has short straight sections and the car probably behaves in an ideal way makes it hard to show the positive influence of the I controller.
